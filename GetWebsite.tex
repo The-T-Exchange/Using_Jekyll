@@ -363,7 +363,7 @@ Here, I've put ``XXXXXXX'' but you must be more meaningful. You don't need to sa
 git push
 \end{lstlisting}
 
-When this completes, you will see something similar to the following on screen:
+When this completes, you will see either an error, or, something similar to the following on screen. See below for error handling.
 
 \begin{lstlisting}[style=myText,numbers=left]
 Enumerating objects: 6, done.
@@ -385,6 +385,30 @@ Most of which, you can ignore! Only lines 8 and 9 are of much use to the lay per
 \end{itemize}
 
 And that is it. After a few minutes, the website at \url{https://the-t-exchange.github.io/} will regenerate and your changes will be visible---\code{published} metadata allowing---to the world.
+
+\subsubsection{Push Errors?}
+When you execute the \code{git push} command, you mkght see an error simialr to this:
+
+\begin{lstlisting}[style=myText,numbers=left]
+ERROR: Permission to The-T-Exchange/Using_Jekyll.git denied to NormanDunbar.
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+\end{lstlisting}
+
+If so, you have not loaded the ssh-agent with your SSH key, this time it's the private key, in order to connect to the repository. If you only have one SSH key, it should work fine. If, like me, you have keys for different systems, you will need to set the key.
+
+Windows users will need to run the ssh-agent utility supplied when you downloaded the openSSH software. Use that to load the correct private key.
+
+For us Linux users, open a terminal session and:
+
+\begin{lstlisting}[style=myText]
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/<KEY-NAME-WITHOUT-DOT-PUB>
+\end{lstlisting}
+
+Now, go back and try the \code{git push} again and it should work, unless you added the wrong key. If you have added an incorrect key, just run the \code{ssh-add} command, but with the correct key!
 
 \section{Checking Git's Log}
 
