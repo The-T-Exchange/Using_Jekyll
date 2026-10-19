@@ -1,0 +1,36 @@
+\chapter{Install Jekyll}\label{chap: Install Jekyll}
+
+As noted already, installing Jekyll on Linux is easy. Windows and Mac users need to follow the instructions at \url{https://jekyllrb.com/docs/}.
+
+Linux Mint users, or others who have a Debian based system---Ubuntu for example---simply need to run the following command:
+
+\begin{lstlisting}[style=myStyle,language=bash]
+sudo apt install jekyll
+\end{lstlisting}
+
+You can also use your normal software installer application to install it if you prefer the GUI over the command line.
+
+Once installed, execute the following commandd to get the version installed:
+
+\begin{lstlisting}[style=myStyle,language=bash]
+jekyll --version
+\end{lstlisting}
+
+Mine says ``4.3.2'' which is not the latest available, but is suitable for our use. Another optional test, to ensure that you have the same modules as I do, is to run this next command:
+
+\begin{lstlisting}[style=myStyle,language=bash]
+apt search jekyll | grep ^i
+\end{lstlisting}
+
+The output should list the following modules. Any that are not present will need installing individually with \code{sudo apt install <whatever>}:
+
+\begin{lstlisting}[style=myText]
+i   jekyll - simple, blog aware, static site generator
+i A jekyll-theme-minima - beautiful, minimal theme for jekyll
+i A ruby-jekyll-feed - Atom feed generator for Jekyll
+i A ruby-jekyll-sass-converter - Basic Sass converter for Jekyll
+i A ruby-jekyll-seo-tag - Jekyll plugin to add metadata tags
+i A ruby-jekyll-watch - Rebuild your Jekyll site when a file changes
+\end{lstlisting}
+
+That's the installation done. Time to set up a small test website, only on your local PC, to get some practice.

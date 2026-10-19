@@ -1,0 +1,847 @@
+\chapter{Testing}\label{chap: Testing}
+
+To set up a quick test that everything is working, these are the steps we will follow:
+
+\begin{itemize}
+    \item Create a top-level directory for our jekyll work, named \path{jekyll}. You can bury this in a suitable directory hierarchy if you wish, I have mine under \path{SourceCode} so that's what I'll run with here.
+    \item Create a small blog, similar to the T-Exchange one.
+    \item Add posts.
+    \item Add images.
+    \item Add links between pages.
+    \item At every stage, we will see the results in our browser.
+\end{itemize}
+
+\section{Creating the File Structure}\label{sect: Create the file structure}
+
+In a terminal session, execute the following commands:
+
+\begin{lstlisting}[style=myStyle,language=bash]
+cd ~
+mkdir -p SourceCode/jekyll
+cd SourceCode/Jekyll
+\end{lstlisting}
+
+
+\section{Create a Blog}\label{sect: Create a Blog}
+
+In a terminal session, execute the following command. Make sure you are in the location created above first!:
+
+\begin{lstlisting}[style=myStyle,language=bash]
+jekyll new Demo
+\end{lstlisting}
+
+\eject
+\begin{tips}{Note}
+    This needs to be done only once for each new blog you intend to create. Once it has been done, you simply need to \code{cd} into the created blog's directory.
+\end{tips}
+
+You should see something like the following:
+
+\begin{lstlisting}[style=myText]
+Running bundle install in SourceCode/Jekyll/Demo...
+Bundler: Resolving dependencies...
+Bundler: Bundle complete! 7 Gemfile dependencies, 30 gems now installed.
+Bundler: Use `bundle info [gemname]` to see where a bundled gem is installed.
+New jekyll site installed in SourceCode/Jekyll/Demo.
+\end{lstlisting}
+
+You can ignore the above, unless there are errors. Any errors here are most likely down to a bad install, or missing modules. It is possible that y ou don;t have write access to the directory you are in, but that would be highly unlikely as you just created it!
+
+Now you should change into the newly created Demo blog's directory, and have a look around.
+
+\begin{lstlisting}[style=myStyle,language=bash]
+cd Demo
+ls
+\end{lstlisting}
+
+Of the files listed, you can ignore the \path{Gemfile} and \path{Gemfile.lock}, but do not ever delete them! The other files and directories are:
+
+\begin{itemize}
+    \item \path{404.html} - page not found errors will display this HTML file. You can edit this to suit how you want the page to look.
+    \item \path{about.markdown} - a default ``about'' page for the blog. We'll be deleting it soon enough!
+    \item \path{index.markdown} - a blank ``home'' page for the blog.
+    \item \path{_posts} - the directory for all posts for this blog.
+    \item \path{_posts/yyyy_mm_dd-welcome-to-jekyll.markdown} - a default ``first post'' for the blog.
+    \item \path{_config.yml} is the configuration for the blog. We'll be changing a few things in here shortly.
+\end{itemize}
+
+\subsection{Fire up the Server!}\label{sect: Fir up the Server}
+
+Well, we have a new blog, how do we get to see it? Execute this command:
+
+\begin{lstlisting}[style=myStyle,language=bash]
+bundle exec jekyll serve --livereload
+\end{lstlisting}
+
+This will produce the following output on screen:
+
+\begin{lstlisting}[style=myText]
+Configuration file: /data/SourceCode/Jekyll/Demo/_config.yml
+Source: /data/SourceCode/Jekyll/Demo
+Destination: /data/SourceCode/Jekyll/Demo/_site
+Incremental build: disabled. Enable with --incremental
+Generating...
+Jekyll Feed: Generating feed for posts
+done in 0.226 seconds.
+Auto-regeneration: enabled for '/data/SourceCode/Jekyll/Demo'
+LiveReload address: http://127.0.0.1:35729
+Server address: http://127.0.0.1:4000/
+Server running... press ctrl-c to stop.
+\end{lstlisting}
+
+The final two lines are important. The ``Server address'' is the URL you need to open in your browser. Press CTRL and click the link.
+
+You will need to press CTRL-C to stop the server. Oh yes, your terminal session is tied up while the server is running, so click File\lyxarrow{}New Tab to start a new session in the same location.
+
+\subsection{Playing With the Browser}\label{sect: Playing With the Browser}
+
+The browser should be open at \url{http://127.0.0.1:4000} and should be displaying a lot of default nonsense. However, ignore that.
+
+Resize the browser window smaller, notice how it adapts for devices with smaller displays? Make it bigger again and it changes back.
+
+Click ``About'' to see the default HTML rendering of the \path{about.markdown} file we looked at earlier.
+
+Click ``Your awesome title'' to see the default HTML rendering of the \path{index.markdown} file we also looked at earlier.
+
+Click ``Welcome to Jekyll'' to see the default first post that was added when we created the blog.
+
+Have a wander around, see what you see, then come back here and we'll configure the blog a bit better than the default.
+
+\section{Configuration}\label{sect: Configuration}
+
+\begin{tips}{Warning}
+    It should be noted, when you change anything in the \path{_config.yml} file, you must stop and restart the server, or the changes will not appear.
+\end{tips}
+
+The configuration for the blog is done in the \path{_config.yml} file. The file is text based, so is easy to change. The format is, however, YAML---Yet Another Markup Language---but it's easy to use.
+
+Open the file in a text editor. \emph{Do not} use a word processor.
+
+Scroll past the initial comments until you find ``title'', ``email'' and ``description''.
+
+Change the text to the following, feel free to use your own email address:
+
+\begin{lstlisting}[caption={Configuring my blog.},style=myText]
+title: My Demo Blog
+email: someone@example.com
+description: >- # this means to ignore newlines until "baseurl:"
+  This is my first Jekyll blog. I'm just learning stuff
+  here, and hopefully, it will work fine. It better!
+\end{lstlisting}
+
+Save the file, switch to the server session in your terminal, and CTRL-C to kill the server. Press the up arrow to get the server start command back again, and restart the server.
+
+In the browser, press F5 or click the refresh button, to refresh the page.
+
+You should notice that the title has now changed to ``My Demo Blog'' and in the footer, the title has changed there too. Your email address has also changed. The short description has also been rendered at the bottom of the page. So far so good.
+
+We can get rid of the Twitter and GitHub links, if we don't want to see them. Just delete the ``jekyllrb'' and ``jekyll'' text, leaving the following:
+
+\begin{lstlisting}[caption={Configuring Twitter and GitHub links.},style=myText]
+twitter_username:
+github_username:
+\end{lstlisting}
+
+You can, of course, put your own Twitter and GitHub usernames here. Mine would be the same username for both:
+
+\begin{lstlisting}[caption={Configuring Twitter and GitHub links.},style=myText]
+twitter_username: NormanDunbar
+github_username:  NormanDunbar
+\end{lstlisting}
+
+Kill the server and restart it. Notice the changes. Right, enough fun, let's write a new  post or two.
+
+\section{Adding posts}\label{sect: Adding Posts}
+
+Posts have to be formatted with filenames in the format \path{yyyy-mm-dd-the-file-name.md}, alternatively,  \path{yyyy-mm-dd-whatever-the-file-name.markdown}. I use the former as it saves typing. Jekyll doesn't care which extension you use.
+
+\begin{tips}{Note}
+    Posts are listed in date order on the home page with the most recent first. This is based upon the date part of the filename. You can override the ordering using the post metadata, as explained in \sectref{sect: Metadata}.
+
+    Also, if your filename has a date in the future, then the post will not appear until that date. Handy if you want to post something while you are away from your computer.
+\end{tips}
+
+Because I can never remember the date, I get the system to create the file for me. Remember, all posts go into the \path{_posts} directory, so we need to change there:
+
+\begin{lstlisting}[caption={Creating a new blog post.},style=myStyle, language=bash]
+cd _posts
+touch $(date +%Y-%m-%d)-my-first-posting.md
+\end{lstlisting}
+
+Now, change to the \path{_posts} directory and open the newly created file in the text editor. Mine created \path{2026-10-13-my-first-posting.md}. Type the following text:
+
+\begin{lstlisting}[caption={Creating a new blog post.},style=myText]
+---
+layout: post
+title: Hello World
+---
+Hello World!
+\end{lstlisting}
+
+Between the three dashes, which indicates top level information or ``metadata'' to Jekyll, we have:
+
+\begin{itemize}
+    \item Layout - this tells Jekyll which layout will be used to render the post. The options are ``Home'', ``About'', ``Post''. We obviously use ``post'' as this is a post.
+    \item Title - Tells Jekyll that we wish to override the default title and use this one instead. However, the URL for the page will retain the original file title---beware!
+\end{itemize}
+
+The usual title for the post is the filename without the date part, and with the words capitalised and hyphens removed. If we didn't override it here, our new blog post would be titled ``My First Posting''.
+
+If you comment out the title line by shoving a '\#' in front of it, you'll see the default post title when you save the file.
+
+Save the file, and look at the browser page. There's no need to refresh this time, we are not changing the configuration. We now have two posts listed on the home page---click ``My Demo Blog'' if you are not already there.
+
+Click on ``Hello World'' to open a new page showing the entire blog post.
+
+\subsection{Headings}\label{sect: Headings}
+
+The post title is displayed with a heading which is larger than a level 1 heading---normally the biggest. You can define up to six heading levels in Markdown as that's as many as HTML will allow.
+
+The use of a hash character, `\#`, is used to define headings. The heading level is determined by the number of hash characters.
+
+\subsection{Markdown Headings Syntax}\label{sect: Markdown Headings Syntax}
+
+Headings should be typed on a separate line from previous and following text.
+
+\begin{description}
+    \item[Heading 1] - Type, \code{\# Heading Title}
+    \item[Heading 2] - Type, \code{\#\# Heading Title}
+    \item[Heading 3] - Type, \code{\#\#\# Heading Title}
+    \item[Heading 4] - Type, \code{\#\#\#\# Heading Title}
+    \item[Heading 5] - Type, \code{\#\#\#\#\# Heading Title}
+    \item[Heading 6] - Type, \code{\#\#\#\#\#\# Heading Title}
+\end{description}
+
+
+\subsection{Paragraphs}\label{sect: Paragraphs}
+
+Paragraph text is a collection of words, symbols etc. You can type as a long, single line, if your editor understands soft wrapping.
+
+\begin{lstlisting}[caption={Paragraphs using long lines.},style=myText]
+This is a long, single, line of text. It was typed into my editor as a single line but the editor has wrapped it around on screen to show the full text, otherwise, I'd have to scroll back and forth to read what I'd written. It will end up as a single paragraph in the generated web pages as a paragraph ends where a pair of consecutive RETURN characters are detected.
+\end{lstlisting}
+
+
+You can, alternatively, type each sentence in the paragraph on separate lines. Some people prefer this. The RETURN character at the end of each sentence will be replaced by a space and the sentences combined into a paragraph.
+
+\begin{lstlisting}[caption={Paragraphs using short lines.},style=myText]
+This is a number of short lines of text.
+It was typed into my editor as you see it onscreen.
+I've separated each sentence, but I could
+equally have splits withing longer sentences
+as it makes no difference.
+It will end up as a single paragraph in the generated
+web pages as a paragraph ends where a pair of
+consecutive RETURN characters are detected.
+\end{lstlisting}
+
+To separate the individual paragraphs, press RETURN \emph{at least} twice, to insert blank line(s) in your text file.
+
+\begin{lstlisting}[caption={Multiple paragraphs.},style=myText]
+This is my first paragraph.
+
+This makes up my second paragraph because there's a blank line above.
+
+
+
+And this is my third paragraph. There are multiple blank lines above it, but that's fine!
+\end{lstlisting}
+
+\subsection{Line Breaks}\label{sect: Line Breaks}
+
+You can, if necessary insert a line break into a paragraph. Simply add two or more spaces at the position in the line where you want the break to be. The spaces must be at the end of the line.
+
+\begin{lstlisting}[caption={Line breaks within paragraphs.},style=myText]
+This is my third paragraph. There are multiple blank lines above it, but that's fine! I will insert a linefeed
+here! I'm still in the paragraph, it's just I split a line for effect.
+\end{lstlisting}
+
+It is possible, with some Markdown systems, to use a backslash at the point where you want the line to split. The backslash must be followed by a RETURN character. This works on Jekyll.
+
+\begin{lstlisting}[caption={Line breaks within paragraphs.},style=myText]
+This is my third paragraph. There are multiple blank lines above it, but that's fine! I will insert a linefeed \
+here! I'm still in the paragraph, it's just I split a line for effect.
+\end{lstlisting}
+
+\subsection{Text Attributes}\label{sect: Text Attributes}
+The text attributes we have available are \textbf{bold}, \textit{italics} and \cancel{strike through} (but better than this example!). We do not have underline, surprisingly.
+
+\subsection{Markdown Text Syntax}\label{sect: Markdown text Syntax}
+
+\begin{description}[Strike-through]
+    \item[Italics] are generated by wrapping a word or phrase in underscores, or single asterisks---like \_this\_ or *this*, either is fine but the trailing character must be the same as the opening one. I use underscores but I also find asterisks easier to detect in the text. The underscore or asterisk must be touching the word or phrase to highlight.
+    \item[Bold] text is created by using two underscores or asterisks around the word or phrase, like \_\_this here\_\_ or **this bit over here**. Pick your own poison.
+    \item[Strike-through] text uses a pair of tilde characters to get the desired effect. This text is \texttildelow{}\texttildelow{}struck out\texttildelow{}\texttildelow{}. If you only use single tildes, they just get displayed.
+\end{description}
+
+You can mix and match the characters, and combine them to make text italic and bold, for example. \code{\_**Like this**\_} or \code{\_*Like this*\_}, or \code{**\_\_even this\_\_**}.
+
+\subsection{Lists}\label{sect: Lists}
+Lists come in two forms and a couple of variants.
+
+\subsubsection{Unordered Lists}\label{sect: Unordered Lists}
+
+Unordered lists are simple ``bullet'' lists much loved by Word processors. Put an asterisk, plus or dash (`*`, `+` or `-`) in the Markdown text, and start each new item on the following line. Most people use an asterisk and may use the plus or dash in nested lists. (See \sectref{sect: Nested Lists}.)
+
+\begin{lstlisting}[caption={Unordered lists.},style=myText]
+* The first item.
+* The second item. This one has a lot of text to go with it, but worry not, it will be formatted correctly in the output HTML.
+* Item three.
+\end{lstlisting}
+
+Foolishly, you can mix and match the list indicators. It's best not to!
+
+\begin{lstlisting}[caption={Unordered lists.},style=myText]
+* The first item.
++ The second item. This one has a lot of text to go with it, but worry not, it will be formatted correctly in the output HTML.
+- Item three.
+\end{lstlisting}
+
+If you put two unordered lists consecutively in the Markdown text, with a blank line between them, they will appear as two lists separated by a blank line.
+
+\subsubsection{Ordered Lists}\label{sect: Ordered Lists}
+
+Ordered lists use a digit/number and a dot to indicate each item. You can use consecutive digits but it makes no difference. I use each number the same ---\code{1. Some text here}.
+
+\begin{lstlisting}[caption={Ordered lists.},style=myText]
+1. The first item.
+1. The second item. This one has a lot of text to go with it, but worry not, it will be formatted correctly in the output HTML.
+1. Item three.
+\end{lstlisting}
+
+You can use random numbers, but please don't!
+
+\begin{lstlisting}[caption={Ordered lists.},style=myText]
+99. The first item.
+10. The second item. This one has a lot of text to go with it, but worry not, it will be formatted correctly in the output HTML.
+7. Item three.
+\end{lstlisting}
+
+
+If you put two unordered lists consecutively in the Markdown text, with a blank line between them, they will appear as two lists separated by a blank line. However, the numbering of the second list will continue on from the final item of the first list.
+
+If you have some text between the two lists, the second list will number from 1 again.
+
+\subsubsection{Nested Lists}\label{sect: Nested Lists}
+
+Lists can be nested. Each level of nesting will use a different ``bullet'' and indentation when rendered to HTML. You can also nest ordered lists within unordered ones, and vice versa.
+
+To nest a list, simply line up the bullet or number for the nested list so that it is, at least, below the first \emph{character} of the item text, not the bullet, of the parent list item above it.
+
+\begin{lstlisting}[caption={Nested unordered lists.},style=myText]
+* Parent item 1.
+* Parent item 2.
+  * Nested item 1.
+    * Nested, nested item 1.
+    * Nested, nested item 2.
+  * Nested item 2.
+* Parent item 3.
+* Parent item 4.
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Nested ordered lists.},style=myText]
+1. Parent item 1.
+1. Parent item 2.
+   1. Nested item 1.
+      1. Nested, nested item 1.
+      1. Nested, nested item 2.
+   1. Nested item 2.
+1. Parent item 3.
+1. Parent item 4.
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Nested ordered \& unordered lists.},style=myText]
+1. Parent item 1.
+1. Parent item 2.
+   * Nested unordered item 1.
+     1. Nested, nested item 1.
+     1. Nested, nested item 2.
+   * Nested unordered item 2.
+1. Parent item 3.
+1. Parent item 4.
+\end{lstlisting}
+
+\subsubsection{Paragraph Lists}\label{sect: Paragraph Lists}
+
+Lists can contain more than just one line of item text. This applies to ordered as well as unordered lists.
+
+\begin{lstlisting}[caption={Paragraph lists.},style=myText]
+* First list item.
+
+  This is a single-line paragraph of meaningless text tagged onto the first list item in the list. You should note that there is an indent at the start of the line, and, a blank line above and below the paragraph text.
+
+* Second list item.
+
+  This is another meaningless paragraph.
+  If you write your paragraphs as short lines.
+  Then there must be an indent at the start
+  of each line.
+
+  You can, of course, have multiple paragraphs.
+
+* Another list item. Without a separate paragraph.
+\end{lstlisting}
+
+And, of course, they can be nested, but this should be avoided. Try not to have too many paragraphs in any of the list items, you can end up losing the structure of the list if it spreads too far down the page.
+
+
+\subsection{Blockquotes}\label{sect: Blockquotes}
+
+Sometimes you might want to emphasize that some text is a quote or an extract from a book or such like. Use the `>` to indicate this. The rendered text will be greyed out and a vertical bar will be prepended to indicate this. The text will be rendered in italics too.
+
+If a blockquote contains another blockquote, double-up on the `>` characters. Keep adding an extra `>` for each level of quote.
+
+\begin{lstlisting}[caption={Blockquotes.},style=myText]
+> This is a blockquote paragraph.
+
+>> This blockquote has been indented, it is a blockquote within a blockquote!
+
+> This is a second blockquote paragraph
+\end{lstlisting}
+
+If required, the blockquote can contain headings, lists, and so on.
+
+\begin{lstlisting}[caption={Blockquotes.},style=myText]
+> ## Extract from Arduino Interrupts, by Norman Dunbar.
+
+> Interrupts seem to be a bone of contention with some makers, but they are actually quite simple (famous last words?) and have the bonus effect of allowing almost instantaneous response to certain events happening, which a polling application might miss, depending on what else it was doing at the time.
+
+> Much of the Arduino code you see in books or on pages on the Internet seem to avoid interrupts, which tends to give the impression that they are somehow difficult. This could not be further from the truth!
+\end{lstlisting}
+
+As ever, the paragraph rules apply, as do those for lists and text formatting already discussed.
+
+\begin{tips}{Note}
+    Note that when rendering bold text within a blockquote, you \emph{must} use the double delimiters---either \code{\_\_bold text\_\_}, or \code{**bold text**}. Trying to use italics within a blockquote has no effect.
+\end{tips}
+
+\subsection{Code}\label{sect: Code}
+
+In the unlikely event of some computer source code being used in a post, you should wrap it withing three or four ``backticks'' (```). If necessary, you can activate code syntax highlighting by typing the source language name.
+
+\begin{lstlisting}[caption={Source code.},style=myText]
+The following code explains how we define some constant byte values to take away the need for so-called "magic" numbers, which are a bad thing in code.
+
+```
+const byte ledFlash = 13;
+const byte ledOnOff = 8;
+const byte onPin = 2;
+const byte offPin = 3;
+```
+\end{lstlisting}
+
+If you type that code into a post, it will be rendered in a pale blue coloured box in a typewriter font.  If necessary, you can activate code syntax highlighting by typing the source language name---C in this case.
+
+\begin{lstlisting}[caption={Source code.},style=myText]
+```C
+const byte ledFlash = 13;
+const byte ledOnOff = 8;
+const byte onPin = 2;
+const byte offPin = 3;
+```
+\end{lstlisting}
+
+This will result in something similar to the following:\\
+
+\texttt{\textbf{const} byte ledFlash = \textcolor{teal}{13};}
+
+\texttt{\textbf{const} byte ledOnOff = \textcolor{teal}{8};}
+
+\texttt{\textbf{const} byte onPin = \textcolor{teal}{2};}
+
+\texttt{\textbf{const} byte offPin = \textcolor{teal}{3};}\\
+
+A list of supported languages is available at \url{https://github.com/rouge-ruby/rouge/wiki/List-of-supported-languages-and-lexers}.
+
+
+\section{Adding Images}\label{sect: Adding Images}
+
+Images can be added to a post relatively simply. There are three parts to an image in an HTML page:
+
+\begin{itemize}
+    \item The actual image itself.
+    \item An optional title, that appears when the mouse cursor hovers over the image.
+    \item Optional ALT text---a description of the image---provided for visually impaired users of the blog. They may have a screen reader which will describe the image based on the ALT text. It is considered polite to always provide ALT text for images.
+\end{itemize}
+
+The markdown syntax to insert an image is:
+
+\begin{lstlisting}[style=myText]
+![ALT text](URL of image "Title text")
+\end{lstlisting}
+
+For example, and assuming that we have created a directory to hold our images, named `\path{/SourceCode/Jekyll/Demo/images}, we could have:
+
+\begin{lstlisting}[style=myText]
+![A birthday cake with 8 candles burning.](/images/agm-cake.jpg "Our 8th birthday cake!")
+\end{lstlisting}
+
+\begin{tips}{Warning}
+    The syntax to insert an image with ALT text and a title must be all on a single line. It has wrapped around above, to fit the page. Nothing will be rendered in the web page if the syntax is split over two (or more) lines.
+\end{tips}
+
+The ALT text is only seen by the screen reader devices, it will not appear on the rendered web page, although, it can be seen if you `right-click the page and select ``view page source''.
+
+\section{Adding Links}\label{sect: Adding Links}
+
+Links can be inserted into a blog post and can open a webpage that is outside of the blog; an image or other resource; or a page within the blog itself.
+
+Links, as with images, have three parts to create a link to any resource in a rendered HTML page:
+
+\begin{itemize}
+    \item The link text which appears in the rendered page, which is what you click.
+    \item The URL of the webpage, image or other resource required.
+    \item An optional title, that appears when the mouse cursor hovers over the link.
+\end{itemize}
+
+Markdown uses a similar syntax, to that for images, to insert links into the rendered HTML. The syntax is:
+
+\begin{lstlisting}[style=myText]
+[Link text](URL "Title text")
+\end{lstlisting}
+
+
+\subsection{Web Links}\label{sect: Web Links}
+
+An example of a web link would be
+
+\begin{lstlisting}[style=myText]
+Please [click here](https://moraymakerspace.com "Moray Maker Space's website") to visit our website.
+\end{lstlisting}
+
+Web links will open in the current page.
+
+\subsection{Resource Links}\label{sect: Resource Links}
+
+An example of a resource link would be
+
+\begin{lstlisting}[style=myText]
+Please [click here](/images/agm-cake.jpg "Our birthday cake") to view our birthday cake.
+\end{lstlisting}
+
+Resource links will open in the current page.
+
+\subsection{Internal  Links}\label{sect: Internal Links}
+
+Internal links will open another page in your blog. This can be a page, see \sectref{sect: Adding Pages}, or another post.
+
+\subsubsection{Page Links}
+
+An example of a page link would be
+
+\begin{lstlisting}[style=myText]
+Please see the [about page](/about "Our about page") to read all about us.
+\end{lstlisting}
+
+Page links will open in the current page.
+
+\subsubsection{Post Links}
+
+An example of a blog post link would be:
+
+\begin{lstlisting}[style=myText]
+Please see [this post](/2026/10/13-my-second-posting "Our other blog post") to read our second blog post.
+\end{lstlisting}
+
+You will notice that the URL is the various bits of the original filename. The example file here would be \path{2026-10-13-my-second-posting.md}, giving a URL of \path{/2026/10/13-my-second-posting}. This is a tad unweildy, so we can make life easier.
+
+\subsubsection{Using Permalinks}
+
+In the metadata for our posts, the bit between three dashes at the top, we can add a permalink:
+
+\begin{lstlisting}[style=myText]
+---
+layout: post
+title: Hello World
+permalink: HelloWorld
+---
+The rest of 2026-10-13-my-second-posting.md goes here.
+\end{lstlisting}
+
+Now, our url is no longer the mashed up filename, but simply ``/HelloWorld''. Our example is now the following:
+
+\begin{lstlisting}[style=myText]
+Please see [this post](/HelloWorld "Our other blog post") to read our second blog post.
+\end{lstlisting}
+
+\begin{tips}{Warnings}
+    Bear the following in mind when using permalinks:
+    \begin{itemize}
+        \item permalinks \emph{must be unique} throughout every blog post in the system. If two or more have the same permalink, carnage will most likely result.
+        \item The ``filename-mash-up'' link format will no longer work if you have a permalink.
+        \item Permalinks are case sensitive. ``Helloworld'' is not the same as ``HelloWorld''.
+    \end{itemize}
+\end{tips}
+
+Blog post links will open in the current page.
+
+
+
+\section{Adding Image Links}\label{sect: Adding Image Links}
+
+Image links are, obviously, clickable images which will open a new page, display a bigger image or whatever. They can be thought of as a normal link with the link text---the bit in square brackets---replaces by the complete code for an image---with or without the normally optional parts.
+
+\begin{lstlisting}[style=myText]
+[![Image ALT text](Image location and Title) ](URL and Title)
+\end{lstlisting}
+
+\begin{tips}{Note}
+    Note that if you supply an Image Title and a link title, the image title will take precedence and will pop-up when the image is hovered over. If the image has no title but the link does, then the link's title will be displayed when the cursor hovers over the image.
+\end{tips}
+
+\begin{tips}{Note}
+    The new/prototype website for the T-Exchange, \emph{but not this demo one}, sets all image widths to 49\% of the screen width. This makes all images the same width. Some larger images will, therefore, be reduced in size. If you need an image to be displayed at it's full size, setup an ``image link'' as described, making the URL for the link point at the image itself. Like this (all on one line):
+
+    \begin{lstlisting}[style=myText]
+[![ALT Text](/images/agm-cake.jpg)](/images/agm-cake.jpg "Click for full size image")\end{lstlisting}%Avoids blank line below listing text.
+\end{tips}
+
+
+
+\section{Adding Pages}\label{sect: Adding Pages}
+
+Pages are like posts, but they do not live in the \path{_posts} directory, they live at the top level (in \path{SourceCode/Jekyll/Demo} in this example.)
+
+
+
+\subsection{The Home Page}\label{sect: The Home Page}
+
+The default home page file, \path{index.markdown} or \path{index.md} is special. It consists of a few comments and the following metadata:
+
+\begin{lstlisting}[caption={Metadata for the ``home'' page's file},style=myText]
+---
+layout: home
+---
+\end{lstlisting}
+
+Only the home page should have the ``home'' layout defined. All other pages should be ``page'' layout. If you accidentally on purpose, define a post as ``home'' layout then on that post, you will see the post content at the top and a list of posts at the bottom. Best avoided.
+
+If you want more information to appear above the list of posts on the home page, when rendered as HTML, then add away!
+
+Anything you add will appear above the list of posts. As an example, you could do the following:
+
+\begin{lstlisting}[caption={Metadata for the ``home'' page's file},style=myText]
+---
+layout: home
+---
+Hello and welcome to the Moray Maker Space's new website. Please have a look below at our posting history, and click away on anything that takes your fancy.
+\end{lstlisting}
+
+Once saved, the new homepage will introduce the viewer with your added text, and the list of posts will appear below the introduction.
+
+There's no restriction on what you add here, images, text, lists, links, whatever---the world, as they say, is your mollusk.
+
+
+\subsection{Other Pages}\label{sect: Other Pages}
+
+The metadata at the top of a page differs slightly from that of a post or the home page:
+
+\begin{lstlisting}[caption={Metadata for a ``page'' file},style=myText]
+    ---
+    layout: page
+    title: About
+    permalink: /about/
+    ---
+\end{lstlisting}
+
+We can see that the layout is \code{page} as opposed to \code{post}. In addition, a permalink has been used---in this case, it's redundant as the filename is \path{about.markdown} so it would be found by ``/about/'' anyway. (The trailing slash character makes no difference by the way.)
+
+The title is used to ensure that the page appears in the menu bar on each page.
+
+\begin{tips}{Warning}
+    You \emph{must} supply a title for any page that you wish to see in the menu bar at the top of each page. If you don't have a title, it will not appear, and can only be accessed using a link or by typing the URL directly into the browser's search bar.
+\end{tips}
+
+\section{Metadata}\label{sect: Metadata}
+
+We've already seen some of the metadata that can be added to a post. Other potentially useful entries are:
+
+\subsection{Layout}
+
+The layout entry defines how your file will be rendered in the final website.
+
+\begin{lstlisting}[style=myText]
+---
+layout: whatever
+---
+\end{lstlisting}
+
+Some examples, supplied by default, pick one:
+
+\begin{lstlisting}[style=myText]
+---
+layout: home
+layout: page
+layout: post
+---
+\end{lstlisting}
+
+These should be obvious.
+
+\begin{description}[Home]
+    \item[Home] is only for the home page, or any other page that you want to list all the blog posts.
+    \item[Page] is for any non-post blog pages such as about, contact etc.
+    \item[Post] is for, blog posts.]
+\end{description}
+
+You can define new layouts. The HTML template file will require to be placed in the \path{_layouts} subdirectory of the Blog.
+
+\subsection{Permalink}
+
+The default format of a post is \path{https://<website>/year/month/day/title.html}. You can change this for a post by specifying a title. %NOTE: Using PATH again!
+
+\begin{lstlisting}[style=myText]
+---
+permalink: /whatever
+---
+\end{lstlisting}
+
+Some examples:
+
+\begin{lstlisting}[style=myText]
+---
+permalink: /about
+permalink: /contact
+permalink: /anything/you/want
+---
+\end{lstlisting}
+
+The leading slash character is mandatory.
+
+If a permalink is used in a post, or page, then any internal links to that page or post must use the permalink and not the usual \path{/YYYY/MM/DD/title-of-file} link destination.
+
+
+\subsection{Title}
+
+Filenames must be in the format \path{YYYY-MM-DD-default-title-of-post.md}. Using a title in the metadata will override what is displayed on the home page and in the blog post itself.
+
+Links from other points in the blog site must still use the \path{/YYYY/MM/DD/title-of-file} link destination \emph{unless} a permalink has been defined.
+
+Some examples:
+
+\begin{lstlisting}[style=myText]
+---
+title: "Hello World"
+title: Hello World
+title: My First Attempt Didn't Go Well
+---
+\end{lstlisting}
+
+If you have more than one title, the last one found will be used. Titles can optionally be enclosed in double quotes.
+
+\subsection{Date}
+
+This overrides the date part of the filename. The format must be:
+
+\begin{lstlisting}[style=myText]
+---
+date: YYYY-MM-DD HH:MM:SS +/-TTTT
+---
+\end{lstlisting}
+
+Some examples, pick one:
+
+\begin{lstlisting}[style=myText]
+---
+date: 2026-10-13 16:42:37 +0100
+date: 2026-10-13 16:42:37
+date: 2026-10-13 16:42
+date: 2026-10-13 16
+date: 2026-10-13
+---
+\end{lstlisting}
+
+Metadata wihout a date entry will take their date from the filename.
+
+The hours are in 24 hour format. Hours, minutes, seconds and timezone offsets are optional.
+
+
+\subsection{Published}
+
+Setting a published entry in the metadata defines whether or not the post is visible to users of the website. True or yes makes the post visible, false or no does not.
+
+Obviously, a ``date'' entry comes into effect here as well.
+
+\begin{lstlisting}[style=myText]
+---
+published: true/false/yes/no
+---
+\end{lstlisting}
+
+Some examples, pick one:
+
+\begin{lstlisting}[style=myText]
+---
+published: true
+published: false
+published: yes
+published: no
+---
+\end{lstlisting}
+
+\subsection{Category/Categories}
+
+Instead of placing posts inside of folders beneath \path{_posts}, you can specify one or more categories that the post belongs to.
+
+When the site is generated the post will act as though it had been set with these categories in the directory structure. ``Categories'' (plural key) can be specified as a space-separated string.
+
+\begin{lstlisting}[style=myText]
+---
+category: a_category
+categories: a_cat b_cat
+---
+\end{lstlisting}
+
+The second entry above is not two separate categories, it is a hierarchy with ``b\_cat'' being a child of ``a\_cat'' and simulates the post file being fully named as \path{_posts/a_cat/b_cat/YYYY-MM-DD-title-of-post.md} instead of just \path{_posts/YYYY-MM-DD-title-of-post.md}.
+
+Some examples, pick one:
+
+\begin{lstlisting}[style=myText]
+---
+category: RAF-Family-Day
+categories: science-fair Strathpeffer
+---
+\end{lstlisting}
+
+Using categories is different from WordPress. They change the default URL for a post from \path{/YYYY/MM/DD/title-of-file} to \path{cat_1/cat_2/cat_3/YYYY/MM/DD/title-of-file}.
+
+\begin{tips}{Note}
+    The docs specify that using a category will gove the effect of the file having been created in a subdirectory of \path{_posts}.
+
+    Testing has found this to not be the case. With a category, you change the URL. With a subdirectory, you do not!
+\end{tips}
+
+\subsection{Tags}
+
+Tags do not appear to work! They should work like categories, but do not change the URL and there doesn't appear to be any way of finding posts by their tag.
+
+\begin{lstlisting}[style=myText]
+---
+tags: one two three
+tags: 3d-stuff
+---
+\end{lstlisting}
+
+%TODO: Try these, from \url{https://jekyllhub.com/tutorial/2026/06/18/jekyll-front-matter-guide/}
+
+\subsection{Excerpt}
+
+Excerpts give a brief summary of the content of the blog post, on the home page. Usually the first 'n' characters, or first paragraph, will be used.
+
+Excerpts only work if the home page's template actually lists a summary of the blog post content as well as the title. This doesn't appear to be the case with our website template (which uses the default theme called ``Minima'').
+
+\begin{lstlisting}[style=myText]
+---
+excerpt: "A short summary of the blog post"
+---
+\end{lstlisting}
+
+
+
+
+\subsection{Last\_Modified\_At}
+
+This entry takes the same options as the ``date'' above. It is only used when the ``search engine optimiser'' plugin is used. Our website doesn't use it.
+
+
+

@@ -1,0 +1,35 @@
+# Lyx files
+*.lyx~
+*.*#
+
+# LaTeX files except AVRAssemblyLanguage.tex and arduinoLanguage.tex
+!AVRAssemblyLanguage.tex
+!arduinoLanguage.tex
+*.aux
+*.idx
+*.log
+*.out
+*.pdf
+*.synctex.gz
+*.toc
+*.lof
+*.lot
+*.ilg
+*.bbl
+*.ind
+*.thm
+
+# The generated PDF file
+ArduinoAssemblyLanguage.pdf
+
+# Anything in the OldStuff and MAYBE STUFF directories
+MAYBE\ STUFF/*
+OldStuff/*
+
+# My TODO Lister.
+todo_lister.sh
+
+FlagsTable.txt
+Table Stuff.txt
+github_code
+Springer/FinalProofObservations.txt

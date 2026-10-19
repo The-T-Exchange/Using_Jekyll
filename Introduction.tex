@@ -1,0 +1,64 @@
+\chapter{Introduction}\label{chap: Introduction}
+
+These instructions are designed to assist in the use and abuse---hopefully not the latter---of the T-Exchange website as and if it is converted to use Jekyll rather than WordPress.
+
+The instructions work through a small example of a local blog site before turning you loose on the live website.
+
+We will progress from the installation of Jekyll on your PC. If you run Linux, all well and good, otherwise you will be directed to the Jekyll website for instructions for your operating system.
+
+After installation, a few tests will be necessary to ensure all is well before we Create and configure a test blog site.
+
+When adding posts, examples of Markdown coding---don't worry, it's just text---will be given, but \appref{chap: Markdown Syntax} gives the actual syntax.
+
+Images, text links and using images as links to other web pages is next, before we look at adding pages which will appear on the menu -bar in the rendered website and finally, we will add some actual posts. Metadata is discussed for pages and posts as it is very important, but again, it's just a couple of lines at the top of a file.
+
+After all that, we have an exercise where we take the skeleton blog site we created for testing purposes, and build it up to a ``full'' website with pages, posts and images etc. This is where you practice before getting down and dirty in the processes of adding and amending topics and post on the live website itself.
+
+Finally, we have an appendix for the Markdown syntax we will normally use for the website.
+
+Have fun!
+
+
+
+\section{Why Change Things?}
+
+The existing WordPress website is a lot of heavy duty ``stuff'' just to display a few words and the occasional image. WordPress is overkill for this as it relies on databases, PHP and has become a target for hackers in recent years, resulting in a massive effort to keep the software and the theme up to date with security patches.
+
+In addition, how certain are we that our hosting company is taking regular backups of the website and supporting software?
+
+Recent problems with the site required that our disk allocation be increased from 500~Mb to 1~Gb, with attendant costs. A test conversion to use Jekyll, a static site generator, resulted in a reduction of space required to less than 20~Mb. This included all the images. The resulting website is hosted by GitHub at no cost!
+
+There is a drawback or two though. The ``contact'' form doesn't yet work, and might not. We might have to set up an email address to be used for contact enquiries. In addition, the various Twitter images and links, might not be so easily created and used. We shall see.
+
+\section{What's Needed}
+
+In theory, all you really need is the ability to write a post in Markdown. \emph{Panic not}, Markdown is plain text and has a few special characters to toggle \textit{italics}, \textbf{bold}, \cancel{strike-through} and so on.
+
+It's as simple as anything to do, the above paragraph would be written in Markdown, as follows:
+
+\begin{lstlisting}[caption={Markdown example paragraph},style={myText}]
+In theory, all you really need is the ability to write
+a post in Markdown. _Panic not_, Markdown is plain
+text and has a few special characters to toggle
+_italics_, **bold**, ~~strike-through~~ and so on.
+\end{lstlisting}
+
+However, you would not be able to view the HTML rendered post until it had been committed to the GitHub repository. This can make errors very difficult to fix.
+
+Jekyll, which is what GitHub uses behind the scenes, allows you to make as many changes as you like to get things right \emph{before} uploading to the repository. You write your post in a normal text editor, save it, and view the result in a local browser session which automatically updates the page as you save the post's text.
+
+\subsection{Requirements Summary}
+
+The following are required to use Jekyll to update the T-Exchange website, and, to create one of you own if necessary.
+
+The only assumption is that you are running on Linux, Windows and Mac users need to check out \url{https://jekyllrb.com/docs/} for full details.
+
+\begin{itemize}
+    \item A GitHub account. We have \url{https://github.com/The-T-Exchange} set up already. You will need the password of course, but I'm not putting that here!
+    \item A repository named \emph{The-T-Exchange/The-T-Exchange.github.io}. Ours is already setup at \url{https://github.com/The-T-Exchange/The-T-Exchange.github.io}
+    \item Jekyll. Install on Linux with \code{sudo apt install jekyll}.
+\end{itemize}
+
+\begin{tips}{Note}
+    When we commit a new post, for example, and push the commit up to GitHub, it will regenerate the Website behind the scenes. There might be a short delay before the change appears in the browser (don't forget to refresh the page!)
+\end{tips}

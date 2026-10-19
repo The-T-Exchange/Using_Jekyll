@@ -1,0 +1,138 @@
+%%%==========================================================================%%%
+%%%              Packages and such like added by Norman Dunbar               %%%
+%%%==========================================================================%%%
+
+\usepackage{nameref}% To use \nameref{...}
+\usepackage{wrapfig}% To wrap text around figures.
+\usepackage{listings}% Guess!
+\usepackage[toc,page]{appendix}% Gets a ``blank'' Appendix page.
+\usepackage{longtable}% For tables extending over a page.
+\usepackage[obeyspaces]{url}% Allow spaces in \path{}.
+\usepackage{xurl}% Ensure \URLs break at /.:*-~'" characters.
+\usepackage{xcolor}% Required for the setup of the listings.
+\usepackage[LGR,T1]{fontenc}% To get Ohms symbols.
+\usepackage{array}%To get table's centred and wrapped.
+\usepackage{courier}% For listings, the default is dire!
+\usepackage[unicode=true,
+    bookmarks=true,
+    bookmarksnumbered=false,
+    bookmarksopen=false,
+    breaklinks=true,
+    pdfborder={0 0 0},
+    pdfborderstyle={},
+    backref=false,
+    colorlinks=true]{hyperref}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{cancel}%To get strike through text/ \cancel{some text}.
+
+\urlstyle{same}% Ensure URLs are in the same font as the text. Not in monotype!
+
+% Macros.
+\newcommand{\ohms}{\textgreek{W}}%Ohms symbol.
+%\newcommand{\app}[1]{\emph{#1}}%Application names.
+\newcommand{\bin}[1]{0b{#1}}%Binary numbers.
+\newcommand{\hexa}[1]{0x\uppercase{{#1}}}%Hexadecimal numbers.
+\newcommand{\varb}[1]{\texttt{#1}}%Variable names.
+\newcommand{\macro}[1]{\texttt{#1}}%Defined macro names.
+\newcommand{\code}[1]{\texttt{#1}}%Inline code segments.
+\newcommand{\func}[1]{\texttt{#1}}%Procedure and function names.
+\newcommand{\pin}[1]{\texttt{#1}}%Arduino/AVR pin names.
+\newcommand{\externC}{\code{extern \textquotedbl{}C\textquotedbl}}
+\newcommand{\shl}{\texttt{<}\texttt{<}~}% << in inline code.
+\newcommand{\shr}{\texttt{>}\texttt{>}~}% >> in inline code.
+\newcommand{\atmega}{ATmega328P}% Get capitalisation correct!
+\newcommand{\gpio}[1]{\texttt{GPIO~#1}}% GPIO pin names.
+\newcommand{\reg}[1]{\texttt{\uppercase{{#1}}}}%Hexadecimal numbers.
+\newcommand{\lyxarrow}{$\rightarrow$}
+\newcommand{\appref}[1]{Appendix \ref{#1}, \nameref{#1}}
+\newcommand{\chapref}[1]{Chapter \ref{#1}, \nameref{#1}}
+\newcommand{\sectref}[1]{Section \ref{#1}, \nameref{#1}}
+\newcommand{\class}[1]{\texttt{#1}}% C++ class names.
+
+%Macros specific to this book.
+\newcommand{\sdkversion}{2.3.0}%Current version of the SDK.
+
+
+%%% Setup Hyperref configuration %%%
+\hypersetup{pdftitle={A Beginner's Guide to Jekyll},
+    pdfauthor={Norman Dunbar},
+    pdfsubject={A Guide on how to use Jekyll.},
+    pdfkeywords={github, jekyll, website, static}
+}
+
+
+%%% Lyx specific additions %%%
+\makeatletter
+
+\DeclareRobustCommand{\greektext}{%
+    \fontencoding{LGR}\selectfont\def\encodingdefault{LGR}}
+\DeclareRobustCommand{\textgreek}[1]{\leavevmode{\greektext #1}}
+\ProvideTextCommand{\~}{LGR}[1]{\char126#1}
+
+\makeatother
+
+
+
+\definecolor{backcolour}{rgb}{1.0, 0.95, 0.96}
+\definecolor{codeGreen}{rgb}{0,0.6,0}
+\definecolor{codeGray}{rgb}{0.5,0.5,0.5}
+\definecolor{codePurple}{rgb}{0.58,0,0.82}
+\definecolor{codeBlue}{rgb}{0,0,0.9}
+
+
+%%% Settings for listings %%%
+%\lstset{
+\lstdefinestyle{myStyle}{
+    language=C++,
+    captionpos=b,
+    %backgroundcolor=\color{backcolour},
+    commentstyle=\itshape\color{codeGreen!},
+    stringstyle=\color{codePurple},
+    keywordstyle={\textbf{\color{black}}},
+    identifierstyle=\color{codeBlue},
+    breaklines=true,
+    numbers=left,
+    numberstyle=\color{codeGray},
+    emptylines=*5,
+    tabsize=4,
+    basicstyle={\footnotesize\ttfamily}, %%% Overridden by SVMono class. :(
+    %basewidth={0.55em}, %%% Needed to fit listings on page %%%
+    showspaces=false,
+    showstringspaces=false,
+    keepspaces=true,
+    frame=single,
+    escapeinside={@*}{*@}, % Use to add LaTeX to a code lstlisting,
+                           % \textbf{xxx\_yyy} --- you need to escape stuff though.
+}
+
+%%% Settings for text listings %%%
+%\lstset{
+    \lstdefinestyle{myText}{
+        %language=C++,
+        captionpos=b,
+        %backgroundcolor=\color{backcolour},
+        %commentstyle=\itshape\color{codeGreen!},
+        %stringstyle=\color{codePurple},
+        %keywordstyle={\textbf{\color{black}}},
+        identifierstyle=\color{codeBlue},% Actually, the text colour!
+        breaklines=true,
+        breakindent=0pt,
+        breakatwhitespace=true,
+        %numbers=left,
+        %numberstyle=\color{codeGray},
+        %emptylines=*5,
+        %tabsize=4,
+        basicstyle={\footnotesize\ttfamily}, %%% Overridden by SVMono class. :(
+        %basewidth={0.55em}, %%% Needed to fit listings on page %%%
+        showspaces=false,
+        showstringspaces=false,
+        keepspaces=true,
+        frame=single,
+        escapeinside={@*}{*@}, % Use to add LaTeX to a code lstlisting,
+        % \textbf{xxx\_yyy} --- you need to escape stuff though.
+    }
+
+%%%==========================================================================%%%
+%%%                End of Norman Dunbar's additions                          %%%
+%%%==========================================================================%%%

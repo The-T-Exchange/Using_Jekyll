@@ -1,0 +1,163 @@
+\chapter{Markdown Syntax}\label{chap: Markdown Syntax}
+
+Here are all the Markdown syntax that you will need to update the website, or even, create your own.
+
+There is much more that Markdown can do, and there's a full reference available online at \url{https://markdowncheatsheet.com/reference}, should you need to dig further.
+
+\section{Text Formatting}
+
+Basic formatting of text is mainly for bold and italic text. These can be combined by using both sets of special characters.
+
+\subsection{Bold Text}
+
+Bold text has a pair of underscores or a pair of asterisks around it. There should be no spaces between these characters and the text to be emboldened.\\
+
+\noindent\code{This text will be **bold**, and so will \_\_this\_\_.}
+
+\subsection{Italic Text}
+
+Italic text has a single underscore or a single asterisk around it. There should be no spaces between these characters and the text to be italicised.\\
+
+\noindent\code{This text will be *Italic*, and so will \_this\_.}
+
+\subsection{Strike Through Text}
+
+Strike through text has a pair of tildes around it. There should be no spaces between these characters and the text to be struck out.\\
+
+\noindent\code{This text will be \texttildelow{}\texttildelow{}struck out\texttildelow{}\texttildelow{} when viewed.}
+
+\section{Headings}
+
+Headings are indicated by one or more hash characters at the start of the heading line. Everything on the line will be ``headingised'', so heading lines should be kept as short as necessary. There should be a space after the hash character(s).
+
+Although there are six heading levels, for best results, keep headings limited to the first three or four levels.\\
+
+\noindent\code{\# Heading 1}\\
+\code{\#\# Heading 2}\\
+\code{\#\#\# Heading 3}\\
+\code{\#\#\#\# Heading 4}\\
+\code{\#\#\#\#\# Heading 5}\\
+\code{\#\#\#\#\#\# Heading 6}\\
+
+\section{Paragraphs}
+
+If your text editor has a wrap feature, turn it on and start typing all the text in each paragraph as you would in a normal word processor.
+
+Failing that, type short lines of text with no blank lines between and they will still be rendered as a paragraph.
+
+One or more blank lines between paragraphs will suffice to render them correctly.
+
+
+\section{Line Breaks}
+
+Insert a line break into a paragraph by ending the line with two or more spaces where you want the break to be---insert the spaces then press RETURN.
+
+Alternatively, type a backslash (`\textbackslash') character, followed by RETURN, where you want the break to be.
+
+\section{Unordered Lists}
+
+An unordered list is created by prefixing each item with an asterisk (`*'), minus (`-') or plus (`+').\\
+
+\noindent\code{* Item 1}\\
+\code{* Item 2}\\
+\code{+ Item 3}\\
+\code{+ Item 4}\\
+\code{- Item 5}\\
+\code{- Item 6}\\
+
+The ``bullets'' can be mixed and matched as above, but will render correctly regardless.\\
+
+Lists can be nested.\\
+
+\noindent\code{* Item 1}\\
+\code{* Item 2}\\
+\code{+ Item 3}
+
+\hspace{\parindent}\code{+ Nested item 1}
+
+\hspace{\parindent}\code{- Nested item 2}
+
+\noindent\code{- Item 4}\\
+
+\section{Ordered Lists}
+An ordered list is created by prefixing each item with a number and a dot. The same or random numbers can be used.\\
+
+\noindent\code{1. Item 1}\\
+\code{1. Item 2}\\
+\code{1. Item 3}\\
+\code{1. Item 4}\\
+\code{1. Item 5}\\
+\code{1. Item 6}\\
+
+Lists can be nested.\\
+
+\noindent\code{1. Item 1}\\
+\code{1. Item 2}\\
+\code{1. Item 3}
+
+\hspace{\parindent}\code{1. Nested item 1}
+
+\hspace{\parindent}\code{1. Nested item 2}
+
+\noindent\code{1. Item 4}\\
+
+\section{Block Quotes}
+
+Adding one or more ``greater than'' characters, (`>') will render the text on that line, or paragraph, as a block quote. This will render the text in italics meaning that italic text characters are ignored.\\
+
+\noindent\code{> This is}\\
+\code{> A block quote}\\
+
+Block quotes can be nested by doubling up on the `>' characters.\\
+
+\noindent\code{> This is}\\
+\code{> A block quote}\\
+\code{\shr This is the nested quote line}\\
+
+Block quote are handy to show email conversations, for example.
+
+\section{Computer Code}
+
+Computer code, is indicated by three or more backticks (`\textasciigrave') at the start and end. These should be on their own line.\\
+
+\noindent\code{\textasciigrave\textasciigrave\textasciigrave}\\
+\code{Some code here}\\
+\code{\textasciigrave\textasciigrave\textasciigrave}
+
+You can specify the code's language for correct highlighting by adding the code name to the first line.\\
+
+\noindent\code{\textasciigrave\textasciigrave\textasciigrave}pascal\\
+\code{Some Pascal code here}\\
+\code{\textasciigrave\textasciigrave\textasciigrave}
+
+\section{Images}
+
+Images are added to the website as follows:\\
+
+\noindent\code{![ALT Text here](Image URL "Image Title")}\\
+
+The ALT Text is used by screen readers (for visually impaired people) to describe the image, and should be used.
+
+The image URL is where the website keeps the image. The title will pop-up when the image is hovered over.
+
+On the live website, all images are displayed at 49\% width. See \sectref{sect: Image Links below} to see how to make an image clickable and to open itself at full size.
+
+\section{Text Links}
+
+Text links are added to the website as follows:\\
+
+\noindent\code{[link text here](Destination URL "Link title")}\\
+
+This is pretty much identical to an image, but without the leading `!'. The link text is what appears onscreen, to be clicked. The destination URL is where the link will go when clicked. The link title is a pop-up which will appear when the link is hovered over.
+
+\section{Image Links}\label{sect: Image Links below}
+
+Image links can be used to open a destination URL as text links do, or they can be used to make images open themslevs at full size as the website renders images at 40\% width normally.\\
+
+\noindent\code{[![ALT text](Image URL \& Title) ](Destination URL \& Title)}
+
+The ALT text is for screen readers and should be meaningful. The image URL is where the site keeps its images. The destination URL is the page that opens when the image is clicked and the two titles are used to pop-up some text when the image is hovered over.
+
+You can't have both titles! If both are supplied, the image title takes precedence.
+
+If the destination URL is the same as the image URL, then the image will open at full size when clicked on.

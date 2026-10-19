@@ -1,0 +1,220 @@
+\chapter{Exercises}\label{chap: Exercises}
+
+So, you are now at the stage where you have a website named ``Demo'' consisting of the standard ``Welcome to Jekyll'' first post, and a very minimal ``Hello World'' post. Time for some fun.
+
+%------------------------------------------------------------
+\section{Check Server}
+
+Open the browser to \url{https://127.0.0.1:4000} and you should see the home page showing a list of two posts, ``Hello World'' and ``Welcome to Jekyll''.
+
+Problem? You don't have a running server. Start it up again:
+
+\begin{lstlisting}[style=mystyle,language=bash]
+cd SourceCode/Jekyll/Demo
+bundle exec jekyll --livereload
+\end{lstlisting}
+
+%------------------------------------------------------------
+\section{Create the Images directory}
+
+%------------------------------------------------------------
+\section{Rename Page Files}
+
+I'm not fond of having \path{.markdown} as the file extension as it sorts differently to all the other \path{*.md} files in the file browser. We need to change this.
+
+In your file browser, navigate to \path{SourceCode/Jekyll/Demo} and:
+
+\begin{itemize}
+    \item Rename \path{index.markdown} to \path{index.md}.
+    \item Rename \path{about.markdown} to \path{about.md}.
+\end{itemize}
+
+%------------------------------------------------------------
+\section{Edit Page Files}
+
+The ``about'' and ``home'' pages need a little more information.
+
+\subsection{About Page}
+
+Make the following  changes to the \path{about.md} file. As you make each change, save the file and check the results in the browser.
+
+\lyxarrow{}~Delete the default text and copy the following text and paste it into the body of the about file. You will need to press RETURN to split the paragraphs up after pasting---weirdly, the blank lines don't copy from PDF files!
+
+Notice, when pasted these will be multiple lines of text, not three separate, single line paragraphs. Don't worry, a blank line in the right place will sort out the paragraphs for you.
+
+
+\begin{lstlisting}[style=myText]
+We are the T-Exchange, a registered Makerspace established eight years ago and currently specialising in a range of technologies including Raspberry Pi, Arduino micro-controllers, 3D printers and Robotics.
+
+We have held the status of a Scottish registered charity, since July 2018 with our main charitable objective being the promotion of STEM Education, particularly targeted towards the young people of Moray. For example in September 2022 we restarted our Coderdojo Moray Code Club in Moray College. This is now the 8th year the free club has been in operation in the college. There we offer Scratch coding, Microbit coding, Robotics, Data handling and Computational thinking activities as part of an exciting range of Computing Hands-On activities for the young people to try.
+
+In addition during the last year we have worked hard to further our educational charitable aims in other practical hands-on ways to young people. This has included attending local science festivals.
+\end{lstlisting}
+
+
+\lyxarrow{}~Check the metadata at the top of the file to confirm a ``page'' layout and change the title to ``About Us''. The permalink can be left as-is, commented out with a '\#' at the start of the line, or deleted as you see fit. It won't change anything.
+
+When saved, you should see that ``About'' in the menu bar changes to ``About Us''.
+
+\lyxarrow{}~Look in the text of the first paragraph, and change ``established eight years ago'' to ``established in YYYY''---time moves on and putting stuff like ``nn years ago'' or ``nn years from now'' and such like, dates very quickly.
+
+\lyxarrow{}~In the second paragraph, it mentions ``this is now the 8th year'', change this to correct the number, if appropriate. Or, if we are no longer active, make the text show that we \emph{were} active for eight years.
+
+\lyxarrow{}~In the final paragraph, it states ``during the last year'', fix this to read correctly no matter which year it currently is---perhaps ``Since YYYY we have ...''
+
+When saved, check that the text now reads correctly.
+
+When happy with the changes, close the file.
+
+\subsection{Home Page}
+
+The \path{index.md} file is next. Click on ``My Demo Blog'' in the browser to return to the page, from the ``About Us'' page.
+
+Edit the \path{index.md} file, currently it consists of a comment and the metadata.
+
+\lyxarrow{}~Delete the comment, and the blank line that follows it.
+
+\lyxarrow{}~Copy the following text into the body of the file, and save it. Note that the pair of double quotes used in the PDF might be ``posh'' ones. Delete them and replace them with plain ones from the keyboard! (Just in case.)
+
+\begin{lstlisting}[style=myText]
+About Us
+
+We are the T-Exchange. For more information see our "About Us" page.
+
+What We Do
+
+We are a group of technical folk, who wish to share our knowledge of many things with everyone who wishes to learn from us.
+
+Technical Knowledge and Skills
+
+Many of our members possess knowledge and skills honed over many years in fields of Education, Science, Computing and Engineering. Some examples include an extensive Covid-19 PPE Visor project involving the use of our own 3D printers and 3D Modelling software. We are also using website design tools, as we edit our website to better meet our future needs. We are happy to share our extensive experience for the benefit of others and to this end we develop targeted displays and practical activities for public events plus several computer coding clubs for young people across Moray.
+\end{lstlisting}
+
+Save the changes and check the page in the browser.
+
+\lyxarrow{}~Next, make the ``About Us'', ``What We Do'' and ``Technical Knowledge and Skills'' lines into level 2 headings.
+
+Save the changes and check the page in the browser. Not happy? Try a different level as you see fit. I find level 2 is the most readable.
+
+\lyxarrow{}~In the first section, change the text ``About Us'' to be a link to the about page.
+
+\hspace{\parindent}The URL will be ``/about''.
+
+\hspace{\parindent}The link text will be ``About Us'' without quotes.
+
+\hspace{\parindent}The link's title should be ``Read all about us''.
+
+Save the changes and test that the link works. Press the back button to return to the home page.
+
+\lyxarrow{}~In the ``Technical'' section, there's a couple of things we do as examples. Convert those to an unordered list consisting if the following two elements:
+
+\hspace{\parindent}An extensive Covid-19 PPE Visor project involving the use of our own 3D printers and 3D Modelling software.
+
+\hspace{\parindent}We are also using website design tools, as we edit our website to better meet our future needs.
+
+\hspace{\parindent}Change the text above the list to read ``Some examples are:``.
+
+
+\lyxarrow{}~Make the ''fields'' where our skills lie, mentioned in the ``Technical'' section into italics. Specifically ``Education, Science, Computing and Engineering''. (``and'' should not be italicised.)
+
+\lyxarrow{}~Make sure that the metadata consist only of a ``home'' layout.
+
+When all the changes have been made, and the file saved \& closed, the home page should now show some information about the group---at the top---with the post list of two existing posts below it.
+
+%------------------------------------------------------------
+\section{Delete the Default Post}
+
+We dont need the ``Welcome to Jekyll'' post. Delete it from the \path{_posts} directory. Check how the home page looks now.
+
+%------------------------------------------------------------
+\section{Delete the Hello World Post}
+
+The first real posting that we did was a bit naff. We messed with then title and so on. Delete the file we created in \path{_posts}.
+
+
+%------------------------------------------------------------
+\section{Add a Contact Page}
+
+We currently don't have any contact details for the group in the Demo blog, so we'll add a new ``Contact'' page.
+
+\lyxarrow{}~Create a new file, \path{contact.md} in the root of the \path{Demo} directory, alongside \path{index.md} and \path{about.md}.
+
+\lyxarrow{}~Create the metadata section. Set the layout to ``page'' and the title to ``Contact''. Don't forget the three dashes at the top and bottom of the section.
+
+When saved, you should see a new menu entry, Contact, in the menu bar. Click it.
+
+\lyxarrow{}~Add the following text to the body of the contact file'
+
+\begin{lstlisting}[style=myText]
+To contact the T-Exchange, send an email to The T-Exchange.
+
+Any information you enter will be emailed to us and not stored on the server.
+
+Privacy policy
+
+Please note that we may pass your email address to a Trustee of the T-Exchange in order to answer your question. It is our policy to delete both your email and email address after replying.
+\end{lstlisting}
+
+\hspace{\parindent}Make ``Privacy Policy'' a level 3 heading.
+
+\hspace{\parindent}Make ``Any information...on the server'' bold text.
+
+\hspace{\parindent}Convert ``The T-Exchange'' at the top, into a ``mailto'' link.
+
+\hspace{\parindent}\hspace{\parindent}The link text will be ``The T-Exchange''.
+
+\hspace{\parindent}\hspace{\parindent}The url will be \url{mailto:your-email-address}, for example \url{mailto:me@x.uk}.
+
+Save the file and check the browser. Click on the link---``The T-Exchange'' and your email system should open with a new email already addressed to yourself.
+
+\begin{tips}{Note}
+    This is obviously a problem! Having your email address on a web page leaves you open to being spammed and/or scammed. I'm looking at \url{https://www.formbackend.com} as a potential workaround for the contact form we used to have.
+
+    It offers a number of things that could be useful. Plus, we don't have to embed our email addresses in the page.
+\end{tips}
+
+%------------------------------------------------------------
+\section{Add Some Posts}
+
+Now for the hard bit. You should create a number of posts about anything  you want. It doesn't have to be long winded, a couple of [short] paragraphs will suffice.
+
+Try to add posts which include some or all of these:
+
+\begin{itemize}
+    \item Lists
+    \item Bold text
+    \item Italic text
+    \item Headings
+    \item Images
+    \item Links to external web pages---you could use \url{https://moraymakerspace.com} as a test example
+    \item Links to internal posts
+    \item Image links which simply display the full sized image.
+    \item Image links that link to external web pages.
+    \item And such like---anything you might use in the live website.
+\end{itemize}
+
+Add about five or six, more if you want.
+
+\lyxarrow{}~Make sure that you specify the metadata for each post. The layout should be ``post''.
+
+\lyxarrow{}~Try a few with different titles to the filename using the ``title'' metadata.
+
+\lyxarrow{}~Add a ``date'' to the metadata. Different to the file name's date part. See how it makes the sort order on the home page differ?
+
+\lyxarrow{}~Try a couple of posts with different values for the ``published'' metadata item. Note when you change it and save, how it appears and vanishes from the list on the home page?
+
+\lyxarrow{}~Create a file with tomorrow's date as part of the filename. Once saved, it won't appear until tomorrow. Save the file and leave it overnight and check tomorrow.
+
+\lyxarrow{}~Create a ``permalink'' for a post. Notice how the URL in the search bar lists it when you click on the post to open it?
+
+\lyxarrow{}~Comment out the permalink and refresh the browser. You should get an ``error 404'' page. Click ``My Demo Blog'' to return to the home page, find the post in the list, click it. Check the URL again.
+
+\lyxarrow{}~You could experiment with ``tags'' and ``category''/''categories'' but quite frankly, they only change the URL and don't appear to have any other function.
+
+\section{Going Live}
+
+At this point, everything you've done has been local. Feeling up to trying this out on the ``live'' website?
+
+Don;t worry if you mess things up, it's relatively easily fixed---by deleting the mess and starting again.
+
+Read on.

@@ -1,0 +1,484 @@
+\chapter{Working on the Live Website}\label{chap: Working on the Live Website}
+
+Much of what follows was part of the December presentation for the use and abuse of GitHub. Consider this as revision---unless you are reading it before December's meeting.
+
+The initial steps to go through for each ``editing'' user are:
+
+\begin{itemize}
+    \item Install the Git client software on the PC where the posts will be created and edited.
+    \item Configure the git client as appropriate. Username, email and line endings are a must do!
+    \item Generate an SSH key-pair in ED25519 format.
+    \item Send the \path{filename.pub} key-file to the website maintainer.
+    \item The maintainer will add the public key to the repository.
+\end{itemize}
+
+%------------------------------------------------------------
+\section{Setup Git Client}
+
+Install Git by following the instructions for your system, at \url{https://git-scm.com/install/}. While you are there, you can download the free git book as well.
+
+Once Git is  installed, you must configure the following options at the very least.
+
+The first option tells us who you are. If something goes horribly wrong, or even when it doesn't, we can see who made changes.
+
+\begin{lstlisting}[style=myText]
+git config --global user.name "Your name"
+\end{lstlisting}
+
+Obvioulsy, we need your email address too, so that's next.
+
+\begin{lstlisting}[style=myText]
+git config --global user.email "Your email address"
+\end{lstlisting}
+
+The next setting controls how your text files will be checked out and back in again if some people are on Windows and others are on MacOS or Linux.
+
+With the settings given checking a file out will convert the line endings to the locally used ones, and when checking back in, they are converted back to their original setting if necessary.
+
+\begin{lstlisting}[style=myText]
+git config --global core.autocrlf <option - see below>
+\end{lstlisting}
+
+The three options are:
+
+\begin{itemize}
+    \item For Windows: set it to \emph{true}.
+    \item For Linux: Set it to \emph{input}.
+    \item For MacOS: Set it to \emph{input}.
+\end{itemize}
+
+The final option makes certain that any new repositories created have the deault branch set to be named ``main''.
+
+\begin{lstlisting}[style=myText]
+git config --global init.defaultbranch main
+\end{lstlisting}
+
+These four settings apply to all repositories created or cloned by you.
+
+%------------------------------------------------------------
+\section{Generate a New SSH Key}
+
+The preferred method of accessing GitHub remotely, is to use SSH. On Mac and Linux systems, it's already installed but the \emph{mega-secure} Windows operating system needs to have an SSH installed. OpenSSH is recommended.
+
+Windows users will have a screen to fill in, and I can't tell you what is asked for as I don't have Windows these days. You need to generate a new ``ED25519'' key linked to your email address.
+
+On Mac and Linux:
+
+\begin{lstlisting}[style=myText,language=bash]
+ssh-keygen -t ed25519 -C ``your_email@whatever.com''
+\end{lstlisting}
+
+You will be asked to save the key pair in a file. The default is \path{/home/norman/.ssh/id_25519}, however, we need everyone who as to be given access to the system to have different filenames.
+
+I suggest anyone wishing to update the website create files with their full name as part of it, for example \path{/home/norman/.ssh/NormanDunbar_id_25519}. This way, we can keep copies of everyone's public key-file for safety in case we have to upload them again for any reason.
+
+Once the key-pair is created, the public file of the key-pair should be sent to the website maintainer, by email or by USB Drive etc.
+
+The file named \path{/home/norman/.ssh/NormanDunbar_id_25519.pub}---note the \path{.pub} extension, this is the \emph{public} key-file of the key-pair. The private key-file, the one without any extension, \emph{must never, ever be allowed into anyone's hands!}
+
+%------------------------------------------------------------
+\section{Add the SSH Key to GitHub}
+
+The Website maintainer will:
+
+\begin{itemize}
+    \item Open the public key-file in a \emph{text editor}, not a word processor.
+    \item Copy the entire content of the key-file to the clipboard---CTRL-A, CTRL-C usually suffices.
+    \item Login to the T-Exchange's account on GitHub.
+    \item Click the profile picture on the far right---The blue ``T'' thing.
+    \item Click ``Settings''.
+    \item On the left sidebar, click ``SSH and GPG Keys''.
+    \item Back to the right, click ``New SSH key''.
+    \item Add a title for the key. I suggest using the key-file sender's full name.
+    \item Paste the text of your public key into the ``Key'' text-box.
+    \item Click ``Add SSH key''
+    \item Advise the user that they have been added.
+    \item Save the public key-file to a safe place, just in case GitHub has a wobbly and we need to upload keys again.
+\end{itemize}
+
+\section{Deleting an SSH Key}
+
+Deleting the SSH key of someone who is no longer permitted to upload to the repository is done in a similar manner.
+
+\begin{tips}{Note}
+    These details are here for reference, they are not part of the stages in getting the live website to amend or add to.
+\end{tips}
+
+\begin{itemize}
+    \item Open the public key-file in a \emph{text editor}, not a word processor so that you can check the key before deletion.
+    \item Login to the T-Exchange's account on GitHub.
+    \item Click the profile picture on the far right---The blue ``T'' thing.
+    \item Click ``Settings''.
+    \item On the left sidebar, click ``SSH and GPG Keys''.
+    \item Back to the right, all current SSH keys are displayed, alongside their name.
+    \item Locate the desired key.
+    \item Click ``Delete''.
+    \item Advise the user that they have been Deleted, if necessary.
+    \item Optionally, delete the key-file from the safe place.
+\end{itemize}
+
+%------------------------------------------------------------
+\section{Getting the Live Website}
+
+With  the installed Git client, we now need to clone the live website. Execute the following command in a terminal session.
+
+\begin{lstlisting}[style=myText]
+# Just in case it doesn't yet exist...
+mkdir -p ~/SourceCode/Jekyll
+
+# Now, use it...
+cd SourceCode/Jekyll
+
+# Clone the website...(ALL ON ONE LINE!)
+git clone git@github.com:The-T-Exchange/The-T-Exchange.github.io.git
+\end{lstlisting}
+
+The entire \code{git clone ...} command should be on one line---it has wrapped around in the PDF.
+
+When the command completes, you will have a new subdirectory named \path{The-T-Exchange.github.io}---this is where you do all your work.
+
+\section{Creating Posts}
+
+Creating a new post is simple. You need to create post files in the location \path{~/SourceCode/Jekyll/The-T-Exchange.github.io/_posts}---assuming you are following along with my setup instructions.
+
+\begin{itemize}
+    \item In a terminal session, or in the file browser, navigate to \path{~/SourceCode/Jekyll/The-T-Exchange.github.io/_posts}
+    \item Create a file named \path{YYYY-MM-DD-my-post-title.md} where the words in the title are separated by hyphens and everything is in lowercase. If the date part is in the future, it will not appear until then.
+    \item Open the file in a text editor.
+    \item Create the metadata section.
+    \begin{itemize}
+        \item Add a \code{title}, if you don't like the file-name default one..
+        \item Add \code{layout: post}.
+        \item Add a \code{permalink: /whatever/} if required.
+        \item Add any other desired metadata entries---published, date, category/categories and so on.
+    \end{itemize}
+    \item Create the body text.
+    \item Save the file.
+\end{itemize}
+
+\section{Checking Post Content}
+
+You have saved a new post or posts and you may have already started the server, if not, do it now in a terminal session:
+
+\begin{lstlisting}[style=myText]
+cd ~/SourceCode/Jekyll/The-T-Exchange.github.io
+bundle exec jekyll serve --livereload
+\end{lstlisting}
+
+In the terminal, where you started the server, your session will hang until you abort the server with CTRL-C.
+
+On screen, however, the server will display the URL for the test server running your changes to the website, this will be \url{http://127.0.0.1:4000}. CTRL-Click the URL to open the browser at the home page for the website.\\
+
+Run the following checks:
+
+\begin{itemize}
+    \item Do you see your added posts in the post list on the home page? Remember, if the file's date portion is in the future, if the metadata has a date in the future or if the metadata has \code{published: false} or \code{published: no}, the post will not be visible.
+    \item Assuming visibility, does the title reflect the filename or the \code{title} set up in the metadata? If not, edit the file and save it, it will automatically update on the home page.
+    \item Click the link for the new post. Does it open? If not, check that the URL displayed in the browser matches that in the filename and/or in the \code{permalink} in the metadata---if there is one.
+    \item Does the body of the post look correct? If not, edit the file to fix text formatting, headings, spelling, images and such like, saving after each change to update the post automatically.
+    \item Make sure any links on the page actually work. This includes images which should open themselves as a full sized versions; images which link to offsite or internal pages; and normal text links.
+\end{itemize}
+
+Once everything looks acceptable, proceed to \sectref{sect: Updating Github} below---unless you also have a new page or pages to add to the website, in which case, read on.
+
+
+\section{Creating Pages}
+
+Pages are created ``free standing'' and not in the \path{_posts} directory. They will appear, automatically, in the menu-bar at the top of each page of the website, \emph{if and only if}, you add a \code{title} in the metadata section. The title you use will define what appears on the menu-bar.
+
+Creating a new page is also simple. You need to create page files in the location \path{~/SourceCode/Jekyll/The-T-Exchange.github.io}---assuming, once again, you are following along with my setup instructions.
+
+\begin{itemize}
+    \item In a terminal session, or in the file browser, navigate to \path{~/SourceCode/Jekyll/The-T-Exchange.github.io}
+    \item Create a file named \path{Page_name.md} where the filename is capitalised and should reflect the text required in the menu-bar on top of each screen.
+    \item Open \path{Page_name.md} in a text editor.
+    \item Create the metadata section.
+    \begin{itemize}
+        \item Add a \code{title}, if you wish the file to be added to the menu-bar.
+        \item Add \code{layout: page}.
+        \item Add \code{permalink: /whatever/} if required.
+    \end{itemize}
+    \item Create the body text.
+    \item Save the file.
+\end{itemize}
+
+
+\section{Checking Page Content}
+
+You have saved a new page or pages and you may have already started the server, if not, do it now in a terminal session:
+
+\begin{lstlisting}[style=myText]
+    cd ~/SourceCode/Jekyll/The-T-Exchange.github.io
+    bundle exec jekyll serve --livereload
+\end{lstlisting}
+
+In the terminal, where you started the server, your session will hang until you abort the server with CTRL-C.
+
+On screen, however, the server will display the URL for the test server running your changes to the website, this will be \url{http://127.0.0.1:4000}. CTRL-Click the URL to open the browser at the home page for the website.\\
+
+Run the following checks:
+
+\begin{itemize}
+    \item Do you see your new page as an entry in the menu-bar on each page of the website?  If the metadata has \code{published: false} or \code{published: no}, the new menu item will not be visible. The file or metadata dates do not affect the visibility of pages.
+    \item If the page has no \code{title} in the metadata, you will need to test the page either from a link from other pages or posts, or, by typing the correct URL for the page---the filename (without the \path{.md} extension, or the \code{permalink} specified in the metadata.)
+    \item Assuming \code{title} visibility, does the  correctly reflect the \code{title} set up in the metadata? If not, edit the file again, and save it. The website will automatically update the menu-bar.
+    \item Click the menu item for the new page. Does it open? If not, check that the URL displayed in the browser matches that in the filename and/or in the \code{permalink} in the metadata---if there is one.
+    \item Does the body of the page look correct? If not, edit the page's file to fix text formatting, headings, spelling, images and such like, saving after each change to update the post automatically.
+    \item Make sure any links on the page actually work. This includes images which should open themselves as a full sized versions; images which link to offsite or internal pages; and normal text links.
+\end{itemize}
+
+Once everything looks acceptable, you next need to update your clone of the live website and then, update the definitive one on GitHub.
+
+\section{Updating Github}\label{sect: Updating Github}
+
+You may, if you wish, close the server by typing CTRL-C in the terminal session you started it in. However, there's no harm in leaving it running if you have more work to do.
+
+The following stages are required:
+
+\begin{itemize}
+    \item Ensure you are in the correct directory for the website.
+    \item Make sure the repository is fully up to date.
+    \item Add changed files to your clone's repository.
+    \item Commit said changes.
+    \item Push those committed changes back to GitHub.
+    \item Regenerate the live website with your changes---worry not, GitHub does this automagically when you push your commits!
+\end{itemize}
+
+\subsection{Get into the Correct Location}
+
+Make sure you are in a terminal session and located in the correct directory for the website on your system.
+
+\begin{lstlisting}[style=myText]
+    cd ~/SourceCode/Jekyll/The-T-Exchange.github.io
+\end{lstlisting}
+
+
+\begin{tips}{Warning}
+    All of these steps require you to be in a terminal session, correctly located in the \path{~/SourceCode/Jekyll/The-T-Exchange.github.io} directory.
+\end{tips}
+
+\subsection{Update the Repository}
+
+In case anyone else had made changes since you last updated the website files, pull down any new edits by those other editors:
+
+\begin{lstlisting}[style=myText]
+git pull
+\end{lstlisting}
+
+You will either get a message that you are up-to-date, or, any posts or pages etc, made by others, will be merged into your local repository.
+
+\subsection{Add Your Changes}
+
+You should now list all the changed files that may require committing.
+
+\begin{lstlisting}[style=myText]
+git status
+\end{lstlisting}
+
+You will see a list of all files in the directory, and all subdirectories, which have been changed. Some or all of these will need to be committed. You will see something like:
+
+\begin{lstlisting}[style=myText,numbers=left]
+On branch main
+Untracked files:
+(use "git add <file>..." to include in what will be committed)
+_posts/2026-10-18-testing-a-new-post.md
+new_page.md
+\end{lstlisting}
+
+\begin{itemize}
+    \item Line 1: Tells you which branch you are editing files on. This will always be ``main''.
+    \item Line 2: This is just a heading, letting you know you are looking at a list of edited or new files.
+    \item Line 3: A prompt to remind you what to do next.
+    \item Lines 4--5: A list of all the changed files.
+\end{itemize}
+
+You can see, hopefully, I have added one new page and one new post. I could add those as a single ``commit'' but they are really two separate updates, so I'll update them individually. Had I added more than one post, I would probably consider committing them all together as a single commit.
+
+So, we have our list of changed files, lets add them first, the \path{new_page.md} file, which added a new menu-bar item to the website.
+
+\begin{lstlisting}[style=myText]
+git add new_page.md
+git status
+\end{lstlisting}
+
+Git will list the new status of all the files in the website directory/subdirectories.
+
+\begin{lstlisting}[style=myText,numbers=left]
+On branch main
+Changes to be committed:
+(use "git restore --staged <file>..." to unstage)
+new file:   new_page.md
+
+Untracked files:
+(use "git add <file>..." to include in what will be committed)
+_posts/2026-10-18-testing-a-new-post.md
+
+\end{lstlisting}
+
+\begin{itemize}
+    \item Line 1: Tells you which branch you are editing files on.
+    \item Line 2: This is just a heading telling you what comes next is a list of added (or staged) files.
+    \item Line 3: A prompt to remind you what to do if you suddenly want to un-add one or more files.
+    \item Lines 4: A list of all the added files.
+    \item Line 6--8: as before, a list of new or edited files which have yet to be added/staged.
+\end{itemize}
+
+\subsection{Commit Your Changes}
+
+We have ``staged'' one file, it should be committed. We can of course, stage multiple files all related to the same changed, but here we have a single file.
+
+\begin{lstlisting}[style=myText]
+git commit -m "Testing page added to the website."
+\end{lstlisting}
+
+Git will make a few checks and register the file as a new commit. It will report back:
+
+\begin{lstlisting}[style=myText,numbers=left]
+[main dc60b1d] Testing page added to the website.
+1 file changed, 0 insertions(+), 0 deletions(-)
+create mode 100644 new_page.md
+\end{lstlisting}
+
+\begin{itemize}
+    \item Line 1: Tells you which branch and a commit id for the commit you just created, along with your commit message.
+    \item Line 2: Brief details of what was committed.
+    \item Line 3: Details of the new file, or changed files.
+\end{itemize}
+
+That's it, our new page has been created, tested, added to local Git and committed. Now we need to do the same for the new post. Briefly and without all the output this time:
+
+\begin{lstlisting}[style=myText]
+git status
+git add _posts/2026-10-18-testing-a-new-post.md
+git status
+git commit -m "New XXXXXXX post added to website."
+\end{lstlisting}
+
+Here, I've put ``XXXXXXX'' but you must be more meaningful. You don't need to say what file it was or anything like that, just a brief, but meaningful, message is required.
+
+
+\subsection{Push Commits to GitHub}
+
+\begin{lstlisting}[style=myText]
+git push
+\end{lstlisting}
+
+When this completes, you will see something similar to the following on screen:
+
+\begin{lstlisting}[style=myText,numbers=left]
+Enumerating objects: 6, done.
+Counting objects: 100% (6/6), done.
+Delta compression using up to 16 threads
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (4/4), 672 bytes | 672.00 KiB/s, done.
+Total 4 (delta 2), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
+To github.com:The-T-Exchange/The-T-Exchange.github.io.git
+50fea5b..10efa56  main -> main
+\end{lstlisting}
+
+Most of which, you can ignore! Only lines 8 and 9 are of much use to the lay person.
+
+\begin{itemize}
+    \item Line 8 shows the full name of the repository that those commits were pushed to. It should always read as \path{The-T-Exchange/The-T-Exchange.github.io.git}. If it doesn't, you've somehow pushed to the wrong repository!
+    \item Line 9 shows a long list of digits and letters, whihc you can ignore, then the local branch we pushed from; and the remote---GitHub---branch we pushed to. These should always be ``main''.
+\end{itemize}
+
+And that is it. After a few minutes, the website at \url{https://the-t-exchange.github.io/} will regenerate and your changes will be visible---\code{published} metadata allowing---to the world.
+
+\section{Checking Git's Log}
+
+Sometimes, it can be useful to see what has changed in the past, and who may have changed it. The command to use is \code{git log}.
+
+\begin{lstlisting}[style=myText]
+# Show all changes since time began!
+git log
+\end{lstlisting}
+
+\begin{lstlisting}[style=myText]
+# Show all changes since time began!
+git log <filename>
+\end{lstlisting}
+
+This will result in a list of all changes, from the most recent going backwards in time. This is where \emph{meaningful commit messages} are useful. The first command will show everything that has ever happened in the repository; the second, only those changes that affected the specific filename supplied.
+
+If there are numerous pages of output, press SPACE to see the next page; RETURN to see the next line; 'Q' or 'q' to end the list; and '?' to get help.
+
+\begin{lstlisting}[style=myText]
+commit 8a0e969f6a3ce5996a92b7eebd4c8f0abaa5e333 (HEAD -> main)
+Author: NormanDunbar <norman@dunbar-it.co.uk>
+Date:   Sun Oct 18 17:39:30 2026 +0100
+
+New XXXXXXX post added to website.
+
+commit dc60b1d591ebfe70079beef92d4202fc6ea2a0a4
+Author: NormanDunbar <norman@dunbar-it.co.uk>
+Date:   Sun Oct 18 17:34:27 2026 +0100
+
+Testing page added to the website.
+
+commit f89bd08f6aa40e905533235ed382a277af64b3b9
+Author: NormanDunbar <norman@dunbar-it.co.uk>
+Date:   Sun Oct 18 17:18:48 2026 +0100
+
+First demo website upload
+
+commit 6166ac68574d84a5aff352cb55426a55cd70bdd8
+Author: NormanDunbar <norman@dunbar-it.co.uk>
+Date:   Sun Oct 18 17:18:10 2026 +0100
+
+Added Jekyll's gitignore
+\end{lstlisting}
+
+\begin{itemize}
+    \item The ``commit'' id is that looooong string of digits and letters.
+    \item The ``Author'' is who committed the change.
+    \item The ``date'' is the commit date and time.
+    \item The commit message is displayed in addition to the above.
+\end{itemize}
+
+You will notice that no file names are mentioned? The command \code{git show <commit id>} will show what changed in the commit. It will also show you a special format of the changes made. It can be very wordy! Use with some level of caution.
+
+Also, note that you only need the first few characters, usually 5, as long as they form a unique beginning to a commit.
+
+\begin{lstlisting}[style=myText]
+git show 6166ac68574d84a5aff352cb55426a55cd70bdd8
+\end{lstlisting}
+
+or
+
+\begin{lstlisting}[style=myText]
+git show 6166a
+\end{lstlisting}
+
+Both return the following information about that particular commit:
+
+\begin{lstlisting}[style=myText,numbers=left]
+commit 6166ac68574d84a5aff352cb55426a55cd70bdd8
+Author: NormanDunbar <norman@dunbar-it.co.uk>
+Date:   Sun Oct 18 17:18:10 2026 +0100
+
+Added Jekyll's gitignore
+
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..74a9223
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,7 @@
++_site/
++.sass-cache/
++.jekyll-cache/
++.jekyll-metadata
++# Ignore folders generated by Bundler
++.bundle/
++vendor/
+\end{lstlisting}
+
+\begin{itemize}
+    \item Lines 1--6 are the same as you would see in a \code{git log} command.
+    \item Line 7 shows a \code{diff} command being executed on the new file and the old one, if it existed. The \code{diff} utility shows the differences between two files.
+    \item Line 8 shows that the commit added a brand new file was added, not an edit of an existing file.
+    \item Line 9 is internal Git stuff, it's the index id of the new file.
+    \item Lines 10 onward show the changes. Here everything has a '+' so these are new lines being added. Lines with a '-' are deleted lines. For a new file, as here, these lines are the entire contents of the file. For changed files, these lines show what was changed.
+\end{itemize}
